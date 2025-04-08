@@ -17,7 +17,10 @@ func NewHandler(router fiber.Router) {
 }
 
 func (h *HomeHandler) home(c *fiber.Ctx) error {
-	return c.SendString("Home page.")
+	// return c.SendString("Home page.")
+	// return fiber.ErrBadRequest
+	// return fiber.NewError(400, "Custom error")
+	return fiber.NewError(fiber.StatusBadRequest, "Custom error")
 }
 
 func (h *HomeHandler) err(c *fiber.Ctx) error {
