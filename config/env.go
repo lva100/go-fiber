@@ -43,11 +43,21 @@ func getBool(key string, defaultValue bool) bool {
 }
 
 type DatabaseConfig struct {
-	url string
+	Url string
 }
 
 func NewDatabaseConfig() *DatabaseConfig {
 	return &DatabaseConfig{
-		url: getString("DSN", "host=localhost user=postgres password=postgres dbname=postgres port=5432 sslmode=disable"),
+		Url: getString("DSN", "host=localhost user=postgres password=postgres dbname=postgres port=5432 sslmode=disable"),
+	}
+}
+
+type LogConfig struct {
+	Level int
+}
+
+func NewLogConfig() *LogConfig {
+	return &LogConfig{
+		Level: getInt("LOG_LEVEL", 0),
 	}
 }
