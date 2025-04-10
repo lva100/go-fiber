@@ -1,22 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Home Page</title>
-	</head>
-	<br>
-		{{$test := "TEST"}}
-		<div>
-			{{range .Names}}
-			<p>{{.}}</p>
-			{{end}}
-		</div>
-		<hr/>
-		<div>
-			{{range .Users}}
-			<p>{{.Id}} - {{.Name | ToUpper}} - {{$test}}</p>
-			{{end}}
-		</div>
-	</body>
-</html>
+{{ template "base" }} {{ define "title" }}
+<title>Main page</title>
+{{ end }} {{ define "content" }}
+<hr />
+<p>Main page</p>
+<hr />
+{{ end }}
