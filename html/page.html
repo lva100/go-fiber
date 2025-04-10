@@ -5,7 +5,21 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Home Page</title>
 	</head>
-	<body>
+	<br>
 		{{.Count}} - число пользователей
+		<hr/>
+		{{if .IsAdmin}}
+			<p>Вы администратор</p>
+		{{else}}
+		<p>Вы не администратор</p>
+		{{end}}
+		<hr/>
+		{{if gt .Count 0}}
+		<p>У вас есть зарегистрированные пользователи</p>
+		{{end}}
+		<hr/>
+		{{if and .IsAdmin .CanUse}}
+		<p>Вы администратор и можете использовать</p>
+		{{end}}
 	</body>
 </html>
