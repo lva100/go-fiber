@@ -6,6 +6,7 @@
 		<title>Home Page</title>
 	</head>
 	<br>
+		{{$test := "TEST"}}
 		<div>
 			{{range .Names}}
 			<p>{{.}}</p>
@@ -14,7 +15,7 @@
 		<hr/>
 		<div>
 			{{range .Users}}
-			<p>{{.Id}} - {{.Name}}</p>
+			<p>{{.Id}} - {{.Name | ToUpper}} - {{$test}}</p>
 			{{end}}
 		</div>
 	</body>
