@@ -6,20 +6,16 @@
 		<title>Home Page</title>
 	</head>
 	<br>
-		{{.Count}} - число пользователей
+		<div>
+			{{range .Names}}
+			<p>{{.}}</p>
+			{{end}}
+		</div>
 		<hr/>
-		{{if .IsAdmin}}
-			<p>Вы администратор</p>
-		{{else}}
-		<p>Вы не администратор</p>
-		{{end}}
-		<hr/>
-		{{if gt .Count 0}}
-		<p>У вас есть зарегистрированные пользователи</p>
-		{{end}}
-		<hr/>
-		{{if and .IsAdmin .CanUse}}
-		<p>Вы администратор и можете использовать</p>
-		{{end}}
+		<div>
+			{{range .Users}}
+			<p>{{.Id}} - {{.Name}}</p>
+			{{end}}
+		</div>
 	</body>
 </html>
