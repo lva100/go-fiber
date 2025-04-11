@@ -1,0 +1,12 @@
+package views
+
+import "lva100/go-fiber/views/components"
+
+templ Main() {
+	<div>
+		@components.Title(components.TitleProps{
+			Title: "Header",
+		})
+		Main
+	</div>
+}

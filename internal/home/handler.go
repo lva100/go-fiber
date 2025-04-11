@@ -1,6 +1,9 @@
 package home
 
 import (
+	"lva100/go-fiber/pkg/tmpladapter"
+	"lva100/go-fiber/views"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/rs/zerolog"
 )
@@ -20,30 +23,13 @@ func NewHandler(router fiber.Router, customLogger *zerolog.Logger) {
 		router:       router,
 		customLogger: customLogger,
 	}
-	// h.router.Get("/", h.home)
-	api := h.router.Group("api")
-	api.Get("/", h.home)
-	api.Get("/error", h.err)
+	h.router.Get("/", h.home)
+	h.router.Get("/404", h.err)
 }
 
 func (h *HomeHandler) home(c *fiber.Ctx) error {
-	users := []User{
-		{Id: 1, Name: "User1"},
-		{Id: 2, Name: "User2"},
-		{Id: 3, Name: "User3"},
-	}
-	names := []string{"User1", "User2", "User3"}
-	data := struct {
-		Users []User
-		Names []string
-	}{
-		Users: users,
-		Names: names,
-	}
-	return c.Render("page", data)
-	// return c.Render("page", fiber.Map{
-	// 	"Count": 3,
-	// })
+	component := views.Main()
+	return tmpladapter.Render(c, component)
 }
 
 func (h *HomeHandler) err(c *fiber.Ctx) error {
