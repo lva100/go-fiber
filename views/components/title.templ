@@ -4,6 +4,14 @@ type TitleProps struct {
 	Title string
 }
 
+css titleClass() {
+	font-size: {"70px"};
+	font-weight: {"bold"};
+	color: {"#ffffff"};
+	margin-bottom: {"12px"};
+	margin-top: {"0px"};
+}
+
 templ Title(props TitleProps) {
-	<h1>{props.Title}</h1>
+	<h1 class={titleClass()}>{props.Title}</h1>
 }
