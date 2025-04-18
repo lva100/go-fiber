@@ -1,11 +1,16 @@
 package layout
 
+import "lva100/go-fiber/views/components"
+
 templ Menu() {
 	@MenuStyle()
 	<div class="menu">
-		<div class="menu__logo">Logo</div>
+		<img src="/public/images/logo.svg"/>
 		<div class="menu__right">
 			<a href="#" class="menu__right-link">Войти</a>
+			@components.LinkButton("/register") {
+				<span>Зарегистрироваться</span>
+			}
 		</div>
 	</div>
 }
@@ -16,10 +21,14 @@ templ MenuStyle() {
 			display: flex;
 			justify-content: space-between;
 			padding: 20px 0;
+			max-width: 1290px;
+			align-items: center;
+			width: 100%;
 		}
 		.menu__right {
 			display: flex;
 			gap: 20px;
+			align-items: center;
 		}
 		.menu__right-link {
 			text-decoration: none;
