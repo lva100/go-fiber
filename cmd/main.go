@@ -21,7 +21,7 @@ func main() {
 		Logger: customLogger,
 	}))
 	app.Use(recover.New())
-
+	app.Static("/public", "./public")
 	// app.Get("/", func(c *fiber.Ctx) error {
 	// 	return c.SendString("Hello, world!!!")
 	// })
