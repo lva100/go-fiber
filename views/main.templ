@@ -4,7 +4,11 @@ import "lva100/go-fiber/views/components"
 import "lva100/go-fiber/views/layout"
 
 templ Main() {
-	<div>
+	@layout.Layout(layout.LayoutProps{
+		Title: "Найди работу мечты",
+		MetaDescription: "Сайт по поиску работы мечты",
+	}) {
+		<div>
 		@layout.Header() {
 			@components.Title(components.TitleProps{
 				Title: "Найди работу своей мечты",
@@ -13,4 +17,5 @@ templ Main() {
 		}
 		Main
 	</div>
+	}	
 }
