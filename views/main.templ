@@ -2,6 +2,7 @@ package views
 
 import "lva100/go-fiber/views/components"
 import "lva100/go-fiber/views/layout"
+import "lva100/go-fiber/views/widgets"
 
 templ Main() {
 	@layout.Layout(layout.LayoutProps{
@@ -9,6 +10,7 @@ templ Main() {
 		MetaDescription: "Сайт по поиску работы мечты",
 	}) {
 		<div>
+		@MainStyle()
 		@layout.Header() {
 			@components.Title(components.TitleProps{
 				Title: "Найди работу своей мечты",
@@ -16,6 +18,21 @@ templ Main() {
 			@components.SubTitle("Простой поиск работы")
 		}
 		Main
+		<div class="main__submit-form">
+			@widgets.VacancyForm()
+		</div>
 	</div>
 	}	
+}
+
+templ MainStyle() {
+	<style>
+		.main__submit-form {
+			background: rgba(48, 150, 37, 0.10);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 60px 0 120px 0;
+		}
+	</style>
 }
