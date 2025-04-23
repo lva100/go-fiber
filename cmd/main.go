@@ -3,6 +3,7 @@ package main
 import (
 	"lva100/go-fiber/config"
 	"lva100/go-fiber/internal/home"
+	"lva100/go-fiber/internal/vacancy"
 	"lva100/go-fiber/pkg/logger"
 
 	"github.com/gofiber/contrib/fiberzerolog"
@@ -26,5 +27,6 @@ func main() {
 	// 	return c.SendString("Hello, world!!!")
 	// })
 	home.NewHandler(app, customLogger)
+	vacancy.NewHandler(app, customLogger)
 	app.Listen(":3000")
 }
