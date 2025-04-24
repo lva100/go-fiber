@@ -43,7 +43,7 @@ func VacancyForm() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<p class=\"vacancy-form__text\">Введите все необходимые данные для публикации</p><p id=\"vacancy-result\"></p><form hx-post=\"/vacancy\" hx-trigger=\"submit\" hx-target=\"#vacancy-result\" hx-swap=\"innerHTML swap:1s\"><div class=\"vacancy-form__inputs\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<p class=\"vacancy-form__text\">Введите все необходимые данные для публикации</p><p id=\"vacancy-result\"></p><form hx-post=\"/vacancy\" hx-trigger=\"submit\" hx-target=\"#vacancy-result\" hx-swap=\"innerHTML swap:0.3s\"><div class=\"vacancy-form__inputs\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -87,7 +87,7 @@ func VacancyForm() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<span>Опубликовать вакансию</span>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<div class=\"vacancy-form__submit\">Опубликовать вакансию</div><div class=\"vacancy-form__loader\"></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -126,7 +126,7 @@ func VacancyFormStyle() templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "<style>\r\n\t\t.vacancy-form {\r\n\t\t\tmax-width: 890px;\r\n\t\t\twidth: 100%;\r\n\t\t}\r\n\t\t.vacancy-form form {\r\n\t\t\tdisplay: flex;\r\n\t\t\talign-items: center;\r\n\t\t\tjustify-content: center;\r\n\t\t\tflex-direction: column;\r\n\t\t}\r\n\t\t.vacancy-form__inputs {\r\n\t\t\twidth: 100%;\r\n\t\t\tdisplay: grid;\r\n\t\t\tgrid-template-columns: 1fr 1fr;\r\n\t\t\tgap: 30px 24px;\r\n\t\t\tmargin-bottom: 30px;\r\n\t\t}\r\n\t\t.vacancy-form__text {\r\n\t\t\toverflow: hidden;\r\n\t\t\tcolor: var(--color-black);\r\n\t\t\ttext-align: center;\r\n\t\t\twhite-space: nowrap;\r\n\t\t\tfont-size: 16px;\r\n\t\t\tfont-weight: 400;\r\n\t\t\tmargin-bottom: 60px;\r\n\t\t}\r\n\t</style>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "<style>\r\n\t\t.vacancy-form {\r\n\t\t\tmax-width: 890px;\r\n\t\t\twidth: 100%;\r\n\t\t}\r\n\t\t.vacancy-form form {\r\n\t\t\tdisplay: flex;\r\n\t\t\talign-items: center;\r\n\t\t\tjustify-content: center;\r\n\t\t\tflex-direction: column;\r\n\t\t}\r\n\t\t.vacancy-form__inputs {\r\n\t\t\twidth: 100%;\r\n\t\t\tdisplay: grid;\r\n\t\t\tgrid-template-columns: 1fr 1fr;\r\n\t\t\tgap: 30px 24px;\r\n\t\t\tmargin-bottom: 30px;\r\n\t\t}\r\n\t\t.vacancy-form__text {\r\n\t\t\toverflow: hidden;\r\n\t\t\tcolor: var(--color-black);\r\n\t\t\ttext-align: center;\r\n\t\t\twhite-space: nowrap;\r\n\t\t\tfont-size: 16px;\r\n\t\t\tfont-weight: 400;\r\n\t\t\tmargin-bottom: 60px;\r\n\t\t}\r\n\t\t.vacancy-form__loader {\r\n\t\tdisplay: none;\r\n\t}\r\n\t.htmx-request .vacancy-form__submit {\r\n\t\tdisplay: none;\r\n\t}\r\n\t.htmx-request .vacancy-form__loader {\r\n\t\tdisplay: block;\r\n\t\twidth: 50px;\r\n\t\t--b: 8px;\r\n\t\taspect-ratio: 1;\r\n\t\tborder-radius: 50%;\r\n\t\tbackground: #ffffff;\r\n\t\t-webkit-mask:\r\n\t\t\trepeating-conic-gradient(#03020200 0deg,#000 1deg 70deg,#0000 71deg 90deg),\r\n\t\t\tradial-gradient(farthest-side,#0000 calc(100% - var(--b) - 1px),#000 calc(100% - var(--b)));\r\n\t\t-webkit-mask-composite: destination-in;\r\n\t\t\t\tmask-composite: intersect;\r\n\t\tanimation: l5 1s infinite;\r\n\t}\r\n\t@keyframes l5 {to{transform: rotate(.5turn)}}\r\n\t</style>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
