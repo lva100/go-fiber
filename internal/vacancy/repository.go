@@ -3,6 +3,7 @@ package vacancy
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -46,16 +47,15 @@ func (r *VacancyRepository) GetAll(limit, offset int) ([]Vacancy, error) {
 }
 
 func (r *VacancyRepository) addVacancy(form VacancyCreateForm) error {
-	query := `INSERT INTO vacancies (email, role, company, salary, type, location) VALUES (@email, @role, @company, @salary, @type, @location)`
-	//, createdat, @createdat
+	query := `INSERT INTO vacancies (email, role, company, salary, type, location, createdat) VALUES (@email, @role, @company, @salary, @type, @location, @createdat)`
 	args := pgx.NamedArgs{
-		"email":    form.Email,
-		"role":     form.Role,
-		"company":  form.Company,
-		"salary":   form.Salary,
-		"type":     form.Type,
-		"location": form.Location,
-		// "createdat": time.Now(),
+		"email":     form.Email,
+		"role":      form.Role,
+		"company":   form.Company,
+		"salary":    form.Salary,
+		"type":      form.Type,
+		"location":  form.Location,
+		"createdat": time.Now(),
 	}
 	_, err := r.Dbpool.Exec(context.Background(), query, args)
 	if err != nil {
