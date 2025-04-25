@@ -48,7 +48,7 @@ type DatabaseConfig struct {
 
 func NewDatabaseConfig() *DatabaseConfig {
 	return &DatabaseConfig{
-		Url: getString("DSN", "host=localhost user=postgres password=postgres dbname=postgres port=5432 sslmode=disable"),
+		Url: getString("DB_URL", "host=localhost user=postgres password=postgres dbname=postgres port=5432 sslmode=disable"),
 	}
 }
 
