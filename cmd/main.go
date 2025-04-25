@@ -30,7 +30,10 @@ func main() {
 	// app.Get("/", func(c *fiber.Ctx) error {
 	// 	return c.SendString("Hello, world!!!")
 	// })
+	//Repositories
+	vacancyRepo := vacancy.NewVacancyRepository(dbPool, customLogger)
+	//Handlers
 	home.NewHandler(app, customLogger)
-	vacancy.NewHandler(app, customLogger)
+	vacancy.NewHandler(app, customLogger, vacancyRepo)
 	app.Listen(":3000")
 }
