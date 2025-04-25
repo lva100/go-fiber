@@ -59,7 +59,7 @@ func (r *VacancyRepository) addVacancy(form VacancyCreateForm) error {
 	}
 	_, err := r.Dbpool.Exec(context.Background(), query, args)
 	if err != nil {
-		return fmt.Errorf("Невозможно создать вакансию: %w", err)
+		return fmt.Errorf("don`t create vacancy: %w", err)
 	}
 	return nil
 }

@@ -3,6 +3,7 @@ package home
 import (
 	"lva100/go-fiber/pkg/tmpladapter"
 	"lva100/go-fiber/views"
+	"net/http"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/rs/zerolog"
@@ -29,7 +30,7 @@ func NewHandler(router fiber.Router, customLogger *zerolog.Logger) {
 
 func (h *HomeHandler) home(c *fiber.Ctx) error {
 	component := views.Main()
-	return tmpladapter.Render(c, component)
+	return tmpladapter.Render(c, component, http.StatusOK)
 }
 
 func (h *HomeHandler) err(c *fiber.Ctx) error {

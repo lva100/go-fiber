@@ -4,6 +4,7 @@ import (
 	"lva100/go-fiber/pkg/tmpladapter"
 	"lva100/go-fiber/pkg/validator"
 	"lva100/go-fiber/views/components"
+	"net/http"
 	"time"
 
 	"github.com/a-h/templ"
@@ -50,14 +51,14 @@ func (h *VacancyHandler) createVacancy(c *fiber.Ctx) error {
 	var component templ.Component
 	if len(errors.Errors) > 0 {
 		component = components.Notification(validator.FormatErrors(errors), components.NotificationFail)
-		return tmpladapter.Render(c, component)
+		return tmpladapter.Render(c, component, http.StatusBadRequest)
 	}
 	err := h.repository.addVacancy(form)
 	if err != nil {
 		h.customLogger.Error().Msg(err.Error())
 		component = components.Notification("Произошла ошибка на сервере, попробуйте позднее", components.NotificationFail)
-		return tmpladapter.Render(c, component)
+		return tmpladapter.Render(c, component, http.StatusBadRequest)
 	}
 	component = components.Notification("Вакансия успешно создана.", components.NotificationSuccess)
-	return tmpladapter.Render(c, component)
+	return tmpladapter.Render(c, component, http.StatusOK)
 }

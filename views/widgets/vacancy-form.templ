@@ -8,7 +8,12 @@ templ VacancyForm() {
 	@components.Title2("Опубликовать вакансию")
 	<p class="vacancy-form__text">Введите все необходимые данные для публикации</p>
 	<p id="vacancy-result"></p>
-	<form hx-post="/vacancy" hx-trigger="submit" hx-target="#vacancy-result" hx-swap="innerHTML swap:0.3s">
+	<form hx-post="/vacancy" 
+		hx-trigger="submit" 
+		hx-target="#vacancy-result" 
+		hx-swap="innerHTML swap:0.3s"
+		hx-on::after-request="if(event.details.successful) this.reset()"
+	>
 		<div class="vacancy-form__inputs">
 			@components.Input(components.InputProps{Placeholder: "Должность", Name: "role"})
 			@components.Input(components.InputProps{Placeholder: "Название компании", Name: "company"})
