@@ -4,6 +4,7 @@ import (
 	"lva100/go-fiber/config"
 	"lva100/go-fiber/internal/home"
 	"lva100/go-fiber/internal/vacancy"
+	"lva100/go-fiber/pkg/database"
 	"lva100/go-fiber/pkg/logger"
 
 	"github.com/gofiber/contrib/fiberzerolog"
@@ -15,6 +16,7 @@ func main() {
 	config.Init()
 	config.NewDatabaseConfig()
 	logConfig := config.NewLogConfig()
+	dbConfig := config.NewDatabaseConfig()
 	customLogger := logger.NewLogger(logConfig)
 	app := fiber.New()
 
@@ -23,6 +25,8 @@ func main() {
 	}))
 	app.Use(recover.New())
 	app.Static("/public", "./public")
+	dbPool := database.CreateDbPool(dbConfig, customLogger)
+	defer dbPool.Close()
 	// app.Get("/", func(c *fiber.Ctx) error {
 	// 	return c.SendString("Hello, world!!!")
 	// })
