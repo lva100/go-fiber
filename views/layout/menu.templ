@@ -5,9 +5,20 @@ import "lva100/go-fiber/views/components"
 templ Menu() {
 	@MenuStyle()
 	<div class="menu">
-		<img src="/public/images/logo.svg"/>
+		<a href="/">
+			<img src="/public/images/logo.svg" />
+		</a>
 		<div class="menu__right">
-			<a href="/login" class="menu__right-link">Войти</a>
+			{{ email := ctx.Value("email").(string) }}
+			if email == "" {
+				<a class="menu__right-link" href="/login">Войти</a>
+			} else {
+				<span class="menu__right-email">{email}</span>
+				<a class="menu__right-link"
+				 	hx-get="/api/logout"
+					hx-trigger="click"
+				>Выйти</a>
+			}
 			@components.LinkButton("/register") {
 				<span>Зарегистрироваться</span>
 			}
@@ -24,18 +35,26 @@ templ MenuStyle() {
 			max-width: 1290px;
 			align-items: center;
 			width: 100%;
+			margin-bottom: 100px;
 		}
+	
 		.menu__right {
 			display: flex;
 			gap: 20px;
 			align-items: center;
 		}
+
+		.menu__right-email {
+			color: var(--color-white);
+		}
+	
 		.menu__right-link {
 			text-decoration: none;
 			color: var(--color-white);
 			font-size: 16px;
 			cursor: pointer;
 		}
+	
 		.menu__right-link:hover {
 			color: #9f9f9f;
 		}

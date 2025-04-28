@@ -6,6 +6,7 @@ import (
 	"lva100/go-fiber/internal/vacancy"
 	"lva100/go-fiber/pkg/database"
 	"lva100/go-fiber/pkg/logger"
+	"lva100/go-fiber/pkg/middleware"
 	"time"
 
 	"github.com/gofiber/contrib/fiberzerolog"
@@ -39,6 +40,7 @@ func main() {
 	store := session.New(session.Config{
 		Storage: storage,
 	})
+	app.Use(middleware.AuthMiddleware(store))
 	// app.Get("/", func(c *fiber.Ctx) error {
 	// 	return c.SendString("Hello, world!!!")
 	// })
