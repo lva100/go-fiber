@@ -11,9 +11,9 @@ import templruntime "github.com/a-h/templ/runtime"
 import "lva100/go-fiber/views/components"
 import "lva100/go-fiber/views/layout"
 import "lva100/go-fiber/views/widgets"
-import "time"
+import "lva100/go-fiber/internal/vacancy"
 
-func Main() templ.Component {
+func Main(vacancies []vacancy.Vacancy, pagesCount, page int) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -86,16 +86,7 @@ func Main() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = components.VacancyCard(components.VacancyCardProps{
-				Id:          1,
-				Email:       "",
-				Location:    "Moscow",
-				Salary:      "10000$",
-				CompanyType: "IT",
-				Company:     "VK",
-				Createdat:   time.Now(),
-				Role:        "Программист",
-			}).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = widgets.VacancyList(vacancies, pagesCount, page).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

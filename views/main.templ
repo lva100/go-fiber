@@ -3,9 +3,9 @@ package views
 import "lva100/go-fiber/views/components"
 import "lva100/go-fiber/views/layout"
 import "lva100/go-fiber/views/widgets"
-import "time"
+import "lva100/go-fiber/internal/vacancy"
 
-templ Main() {
+templ Main(vacancies []vacancy.Vacancy, pagesCount, page int) {
 	@layout.Layout(layout.LayoutProps{
 		Title: "Найди работу мечты",
 		MetaDescription: "Сайт по поиску работы мечты",
@@ -18,16 +18,7 @@ templ Main() {
 			})
 			@components.SubTitle("Простой поиск работы")
 		}
-		@components.VacancyCard(components.VacancyCardProps{
-			Id: 1,
-			Email: "",
-			Location: "Moscow",
-			Salary: "10000$",
-			CompanyType: "IT",
-			Company: "VK",
-			Createdat: time.Now(),
-			Role: "Программист",
-		})
+		@widgets.VacancyList(vacancies,pagesCount,page)
 		<div class="main__submit-form">
 			@widgets.VacancyForm()
 		</div>
