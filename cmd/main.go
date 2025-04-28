@@ -6,11 +6,13 @@ import (
 	"lva100/go-fiber/internal/vacancy"
 	"lva100/go-fiber/pkg/database"
 	"lva100/go-fiber/pkg/logger"
+	"time"
 
 	"github.com/gofiber/contrib/fiberzerolog"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/fiber/v2/middleware/session"
+	"github.com/gofiber/storage/postgres/v3"
 )
 
 func main() {
@@ -28,7 +30,15 @@ func main() {
 	app.Static("/public", "./public")
 	dbPool := database.CreateDbPool(dbConfig, customLogger)
 	defer dbPool.Close()
-	store := session.New()
+	storage := postgres.New(postgres.Config{
+		DB:         dbPool,
+		Table:      "sessions",
+		Reset:      false,
+		GCInterval: 10 * time.Second,
+	})
+	store := session.New(session.Config{
+		Storage: storage,
+	})
 	// app.Get("/", func(c *fiber.Ctx) error {
 	// 	return c.SendString("Hello, world!!!")
 	// })
