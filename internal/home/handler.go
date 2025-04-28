@@ -4,6 +4,7 @@ import (
 	"lva100/go-fiber/internal/vacancy"
 	"lva100/go-fiber/pkg/tmpladapter"
 	"lva100/go-fiber/views"
+	"lva100/go-fiber/views/components"
 	"math"
 	"net/http"
 
@@ -34,6 +35,9 @@ func NewHandler(router fiber.Router, customLogger *zerolog.Logger, repository *v
 	h.router.Get("/", h.home)
 	h.router.Get("/login", h.login)
 	h.router.Get("/404", h.err)
+
+	h.router.Post("/api/login", h.apiLogin)
+	h.router.Get("/api/logout", h.apiLogout)
 }
 
 func (h *HomeHandler) home(c *fiber.Ctx) error {
@@ -43,9 +47,11 @@ func (h *HomeHandler) home(c *fiber.Ctx) error {
 	if err != nil {
 		panic(err)
 	}
-	if name, ok := sess.Get("name").(string); ok {
-		h.customLogger.Info().Msg(name)
+	userEmail := ""
+	if email, ok := sess.Get("email").(string); ok {
+		userEmail = email
 	}
+	c.Locals("email", userEmail)
 	count := h.repository.CountAll()
 	vacancies, err := h.repository.GetAll(PAGE_ITEMS, (page-1)*PAGE_ITEMS)
 	if err != nil {
@@ -67,6 +73,40 @@ func (h *HomeHandler) login(c *fiber.Ctx) error {
 		panic(err)
 	}
 	return tmpladapter.Render(c, component, http.StatusOK)
+}
+
+func (h *HomeHandler) apiLogin(c *fiber.Ctx) error {
+	form := LoginForm{
+		Email:    c.FormValue("email"),
+		Password: c.FormValue("password"),
+	}
+	if form.Email == "a@a.ru" && form.Password == "1" {
+		sess, err := h.store.Get(c)
+		if err != nil {
+			panic(err)
+		}
+		sess.Set("email", form.Email)
+		if err := sess.Save(); err != nil {
+			panic(err)
+		}
+		c.Response().Header.Add("Hx-Redirect", "/")
+		return c.Redirect("/", http.StatusOK)
+	}
+	component := components.Notification("Неверный логин или пароль", components.NotificationFail)
+	return tmpladapter.Render(c, component, http.StatusBadRequest)
+}
+
+func (h *HomeHandler) apiLogout(c *fiber.Ctx) error {
+	sess, err := h.store.Get(c)
+	if err != nil {
+		panic(err)
+	}
+	sess.Delete("email")
+	if err := sess.Save(); err != nil {
+		panic(err)
+	}
+	c.Response().Header.Add("Hx-Redirect", "/")
+	return c.Redirect("/", http.StatusOK)
 }
 
 func (h *HomeHandler) err(c *fiber.Ctx) error {

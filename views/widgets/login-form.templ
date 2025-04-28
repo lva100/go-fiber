@@ -10,7 +10,6 @@ templ LoginForm() {
 		hx-post="/api/login"
 		hx-trigger="submit"
 		class="login-form"
-		hx-target="#login-result"
 		hx-target-error="#login-result"
 		hx-swap="innerHTML"
 	>
@@ -40,6 +39,7 @@ templ LoginFormStyle() {
 		gap: 30px;
 		width: 100%;
 		max-width: 520px;
+		margin-bottom: 50px;
 	}
 	</style>
 }
