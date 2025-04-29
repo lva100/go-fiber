@@ -3,6 +3,7 @@ package main
 import (
 	"lva100/go-fiber/config"
 	"lva100/go-fiber/internal/home"
+	"lva100/go-fiber/internal/sitemap"
 	"lva100/go-fiber/internal/vacancy"
 	"lva100/go-fiber/pkg/database"
 	"lva100/go-fiber/pkg/logger"
@@ -29,6 +30,7 @@ func main() {
 	}))
 	app.Use(recover.New())
 	app.Static("/public", "./public")
+	app.Static("/robots.txt", "./public/robots.txt")
 	dbPool := database.CreateDbPool(dbConfig, customLogger)
 	defer dbPool.Close()
 	storage := postgres.New(postgres.Config{
@@ -49,5 +51,6 @@ func main() {
 	//Handlers
 	home.NewHandler(app, customLogger, vacancyRepo, store)
 	vacancy.NewHandler(app, customLogger, vacancyRepo)
+	sitemap.NewHandler(app)
 	app.Listen(":3000")
 }
